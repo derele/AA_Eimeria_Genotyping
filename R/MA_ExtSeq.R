@@ -6,18 +6,25 @@ library(ape)
 library(pegas)
 library(sidier)
 library(adegenet)
-library(wordcloud)
-library(systemPipeR)
+#library(wordcloud)
+#library(systemPipeR)
 
 ##Change these parameter according to the steps to re-run and dataset to analyse 
 
-Filtering <- TRUE
-newMA <- TRUE
-newDeDa <- TRUE
+## ## We don't re-run any analyses but use the dat as published in
+## "Generalist Eimeria species in rodents: Multilocus analyses
+## indicate inadequate resolution of established markers" (2020)
+## Víctor Hugo Jarquín-Díaz, Alice Balard, Anna Mácová, Jenny Jost,
+## Tabea Roth von Szepesbéla, Karin Berktold, Steffen Tank, Jana
+## Kvičerová, Emanuel Heitlinger https://doi.org/10.1002/ece3.5992
 
-Mus <- FALSE ##Database from Mus musculus
-Apo <- TRUE ##Database from Apodemus 
-Nuc <- TRUE ##Nuclear genes analysis
+Filtering <- FALSE
+newMA <- FALSE
+newDeDa <- FALSE
+
+Mus <- TRUE ##Database from Mus musculus
+Apo <- FALSE ##Database from Apodemus 
+Nuc <- FALSE ##Nuclear genes analysis
 Api <- FALSE ##Apicoplast regions analysis
 
 
@@ -39,7 +46,7 @@ if(Mus){
   samples <- gsub("S\\d+-", "\\1", basename(samples))
   samples <- gsub("-", "_", basename(samples))
   
-  plotQualityProfile(Ffq.file[[14]])
+  ## plotQualityProfile(Ffq.file[[14]])
   
   
   filt_path <- "/SAN/Victors_playground/mouseGT/filt/Mus/"
@@ -67,7 +74,7 @@ if(Mus){
   ## low proportion of data overall cept (but okay for this purpose!)
 
 ##
-  file.ptable <- "/SAN/Victors_playground/mouseGT/EimeriaGT_1/primer.file.csv"
+  file.ptable <- "data/primer.file.csv"
   
   ptable <- read.csv(file.ptable, sep=",", header=TRUE)
   
@@ -96,9 +103,6 @@ if(Mus){
     MA1 <- sortAmplicons(MA, filedir=stratfiles,
                          starting.at=1, max.mismatch=4)
     saveRDS(MA1, file="/SAN/Victors_playground/mouseGT/MA_files/Mus/MA1.Rds")
-    pdf("/SAN/Victors_playground/mouseGT/Figures/primers_MA_sorted_Mus.pdf", width=46)
-    plotAmpliconNumbers(MA1)
-    dev.off()
   } else {
     if(!newMA){
       MA1 <- readRDS(file="/SAN/Victors_playground/mouseGT/MA_files/Mus/MA1.Rds")
@@ -237,7 +241,7 @@ if(newDeDa){
   }
 }
 
-plotAmpliconNumbers(MA6)
+## plotAmpliconNumbers(MA6)
 
 ### Remove chimeras 
 STnoC <- getSequenceTableNoChime(MA6) 
