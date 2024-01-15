@@ -17,4 +17,12 @@ One benefit of the multi-amplicon system is that we can simultaneously
 target host and parasite genetic markers. Here we detail the host
 genotyping performed in parallel to this parasite genotyping.
 
-## 
+In essence we find no hybrid distinction in the ASVs. No hybrid
+singature... This can be deduced from the (slightly messy) clustering
+of ASVs in the single R script. The project is discontinued at this
+point.
+
+I integrated reading of the sequence files from SRA here. This is
+making even the bioinformatics part of the analysis reproducible on
+any computer. This approach might be worthwile to ingegrate into other
+projects. 
